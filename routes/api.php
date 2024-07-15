@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\AnggotaController;
-use App\Http\Controllers\KarangTarunaController;
-use App\Http\Controllers\ProgramKerjaController;
+use App\Http\Controllers\api\AnggotaController;
+use App\Http\Controllers\api\KarangTarunaController;
+use App\Http\Controllers\api\ProgramKerjaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

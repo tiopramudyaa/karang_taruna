@@ -36,14 +36,13 @@
             <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar">
                 <div class="position-sticky">
                     <div class="list-group">
-                        <a href="" class="list-group-item list-group-item-action" aria-current="true">Profile</a>
-                        <a href="" class="list-group-item list-group-item-action" aria-current="true">Anggota</a>
-                        <a href="" class="list-group-item list-group-item-action" aria-current="true">Kegiatan</a>
-                        <!-- <a href="{{url('/admin/bahan_baku')}}" class="list-group-item list-group-item-action {{ Request::is('admin/bahan_baku') ? 'active' : '' }}">Bahan Baku</a> -->
+                        <a href="{{ url('/') }}" class="list-group-item list-group-item-action {{ Request::is('/') ? 'active' : '' }}" aria-current="true">Profile</a>
+                        <a href="{{ url('/anggota') }}" class="list-group-item list-group-item-action {{ Request::is('anggota') ? 'active' : '' }}" aria-current="true">Anggota</a>
+                        <a href="{{ url('/proker') }}" class="list-group-item list-group-item-action {{ Request::is('proker') ? 'active' : '' }}" aria-current="true">Kegiatan</a>
+
                     </div>
                 </div>
             </nav>
-
             @yield('content')
 
         </div>
@@ -53,7 +52,7 @@
     <footer class="mt-auto">
         <nav class="navbar justify-content-between mt-4 bg-dark">
             <div class="container" style="height: 40px;">
-                <p class="text-light">© Atma Kitchen</p>
+                <p class="text-light">© Karang Taruna KOMPAK</p>
             </div>
         </nav>
     </footer>

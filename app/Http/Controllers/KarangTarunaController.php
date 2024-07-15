@@ -7,41 +7,41 @@ use Illuminate\Http\Request;
 
 class KarangTarunaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        $deskripsi = KarangTaruna::all();
-        return response()->json($deskripsi);
-        // return view('karangtaruna.index', compact('deskripsi'));
-    }
+    // /**
+    //  * Display a listing of the resource.
+    //  */
+    // public function index()
+    // {
+    //     $deskripsi = KarangTaruna::all();
+    //     return response()->json($deskripsi);
+    //     // return view('karangtaruna.index', compact('deskripsi'));
+    // }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Request $request)
-    {
-        $profile = KarangTaruna::where('id', 1)->first();
+    // /**
+    //  * Show the form for editing the specified resource.
+    //  */
+    // public function edit(Request $request)
+    // {
+    //     $profile = KarangTaruna::where('id', 1)->first();
 
-        $validated = $request->validate([
-            'nama' => 'required',
-            'visi' => 'required',
-            'misi' => 'required',
-            'logo' => 'required',
-            'gambar_dokumentasi' => 'required',
-        ]);
+    //     $validated = $request->validate([
+    //         'nama' => 'required',
+    //         'visi' => 'required',
+    //         'misi' => 'required',
+    //         'logo' => 'required',
+    //         'gambar_dokumentasi' => 'required',
+    //     ]);
 
-        $profile->update($validated);
+    //     $profile->update($validated);
 
-        return response()->json($profile);
-    }
+    //     return response()->json($profile);
+    // }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(KarangTaruna $karangTaruna)
-    {
-        //
-    }
+    // /**
+    //  * Remove the specified resource from storage.
+    //  */
+    // public function destroy(KarangTaruna $karangTaruna)
+    // {
+    //     //
+    // }
 }

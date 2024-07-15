@@ -20,37 +20,25 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @forelse($anggota as $a)
                         <tr>
                             <td><img src=" https://via.placeholder.com/100" alt="Foto Anggota" class="img-thumbnail">
                             </td>
-                            <td>John Doe</td>
-                            <td>Manager</td>
-                            <td>30</td>
+                            <td>{{$a['nama']}}</td>
+                            <td>{{$a['jabatan']}}</td>
+                            <td>{{$a['usia']}}</td>
                             <td>
                                 <button class="btn btn-primary btn-sm">Ubah</button>
-                                <button class="btn btn-danger btn-sm">Hapus</button>
+                                <a href="{{ url('delete-anggota/'.$a['id']) }}" class="btn btn-danger btn-sm">Hapus</a>
+
                             </td>
                         </tr>
+                        @empty
                         <tr>
-                            <td><img src="https://via.placeholder.com/100" alt="Foto Anggota" class="img-thumbnail"></td>
-                            <td>Jane Doe</td>
-                            <td>Staff</td>
-                            <td>25</td>
-                            <td>
-                                <button class="btn btn-primary btn-sm">Ubah</button>
-                                <button class="btn btn-danger btn-sm">Hapus</button>
-                            </td>
+                            <td colspan="4">No data</td>
                         </tr>
-                        <tr>
-                            <td><img src="https://via.placeholder.com/100" alt="Foto Anggota" class="img-thumbnail"></td>
-                            <td>John Smith</td>
-                            <td>Staff</td>
-                            <td>27</td>
-                            <td>
-                                <button class="btn btn-primary btn-sm">Ubah</button>
-                                <button class="btn btn-danger btn-sm">Hapus</button>
-                            </td>
-                        </tr>
+                        @endforelse
+
                 </table>
             </div>
         </div>
