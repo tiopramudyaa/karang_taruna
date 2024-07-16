@@ -19,7 +19,7 @@
                     <div class="btn-group">
                         <a class="btn btn-outline-dark dropdown-toggle" id="dropdownMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pengaturan</a>
                         <ul class="dropdown-menu dropdown-menu-end p-3" style="width: 400px;" aria-labelledby="dropdownMenu">
-                            <h5></h5>
+                            <h5>Pengaturan</h5>
                             <p></p>
                             <div class="dropdown-divider"></div>
                             <li><a class="dropdown-item" href="">Edit Profile</a></li>

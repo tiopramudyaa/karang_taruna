@@ -22,50 +22,52 @@ class AnggotaController extends Controller
     // /**
     //  * Show the form for creating a new resource.
     //  */
-    // public function create(Request $request)
-    // {
-    //     //
-    //     $validated = $request->validate([
-    //         'nama' => 'required',
-    //         'jabatan' => 'required',
-    //         'gambar' => 'required',
-    //         'karang_taruna_id' => 'required',
-    //         'usia' => 'required'
-    //     ]);
+    public function createAction(Request $request)
+    {
+        //
+        $validated = $request->validate([
+            'nama' => 'required',
+            'jabatan' => 'required',
+            // 'gambar' => 'required',
+            // 'karang_taruna_id' => 'required',
+            'usia' => 'required'
+        ]);
 
-    //     $anggota = Anggota::create($validated);
+        $validated['karang_taruna_id'] = 1;
 
-    //     return response()->json([
-    //         'success' => true,
-    //         'message' => 'Anggota berhasil ditambahkan',
-    //         'data' => $anggota
-    //     ], 200);
-    // }
+        Anggota::create($validated);
+
+        return redirect('/anggota');
+    }
 
     // /**
     //  * Show the form for editing the specified resource.
     //  */
-    // public function edit($id, Request $request)
-    // {
-    //     //
-    //     $anggota = Anggota::where('id', $id)->first();
+    public function edit($id)
+    {
+        //
+        $anggota = Anggota::where('id', $id)->first();
 
-    //     $validated = $request->validate([
-    //         'nama' => 'required',
-    //         'jabatan' => 'required',
-    //         'gambar' => 'required',
-    //         'karang_taruna_id' => 'required',
-    //         'usia' => 'required'
-    //     ]);
+        return view('editAnggota', compact('anggota'));
+    }
 
-    //     $anggota->update($validated);
+    public function editAction($id, Request $request)
+    {
+        //
+        $anggota = Anggota::where('id', $id)->first();
 
-    //     return response()->json([
-    //         'success' => true,
-    //         'message' => 'Detail Anggota',
-    //         'data' => $anggota
-    //     ], 200);
-    // }
+        $validated = $request->validate([
+            'nama' => 'required',
+            'jabatan' => 'required',
+            // 'gambar' => 'required',
+            // 'karang_taruna_id' => 'required',
+            'usia' => 'required'
+        ]);
+
+        $anggota->update($validated);
+
+        return redirect('/anggota');
+    }
 
     // /**
     //  * Remove the specified resource from storage.

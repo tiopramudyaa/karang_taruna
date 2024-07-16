@@ -10,21 +10,20 @@
                     <li class="breadcrumb-item active" aria-current="page">Tambah</li>
                 </ol>
             </nav>
-            <h4>Tmabah Anggota</h4>
-
-            <form action="{{url('/create-anggota')}}" method="post" class="p-3">
+            <h4>Edit Anggota</h4>
+            <form action="{{url('/edit/' .$anggota['id'])}}" method="post" class="p-3">
                 @csrf
                 <div class="mb-2">
                     <label for="nama" class="form-label">Nama Anggota</label>
-                    <input type="text" class="form-control" id="nama" name="nama" required>
+                    <input type="text" class="form-control" id="nama" name="nama" value="{{$anggota['nama']}}">
                 </div>
-                <div class="mb-2">
+                <div class=" mb-2">
                     <label for="stok" class="form-label">Jabatan</label>
-                    <input type="text" class="form-control" id="jabatan" min="0" name="jabatan" required>
+                    <input type="text" class="form-control" id="jabatan" min="0" name="jabatan" value="{{$anggota['jabatan']}}">
                 </div>
                 <div class="mb-2">
                     <label for="harga" class="form-label">Usia</label>
-                    <input type="number" class="form-control" id="usia" name="usia" required>
+                    <input type="number" class="form-control" id="usia" name="usia" value="{{$anggota['usia']}}">
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
