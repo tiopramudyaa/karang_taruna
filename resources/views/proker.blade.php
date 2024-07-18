@@ -14,10 +14,11 @@
                 <table class="table table-responsive">
                     <thead>
                         <tr>
-                            <th scope="col" style="width: 20%;">Foto</th>
+                            <th scope="col" style="width: 10%;">Foto</th>
                             <th scope="col">Nama Program Kerja</th>
                             <th scope="col">Ketua</th>
                             <th scope="col">Tanggal</th>
+                            <th scope="col">Tambah dokumentasi</th>
                             <th scope="col" style="width: 15%;">Pengaturan</th>
 
                         </tr>
@@ -25,16 +26,17 @@
                     <tbody>
                         @forelse($proker as $a)
                         <tr>
-                            <td><img src=" https://via.placeholder.com/100" alt="Foto Anggota" class="img-thumbnail">
+                            <td><img src=" {{ asset($a['gambar']) }}" alt="Foto Proker" class="img-thumbnail" style="width: 60px; height: 60px;">
                             </td>
                             <td>{{$a['nama_proker']}}</td>
                             <td>{{$a['ketua']}}</td>
                             <td>{{$a['tanggal']}}</td>
                             <td>
+                                <a href="{{ url('dokumentasi-proker/'.$a['id']) }}" class="btn btn-success btn-sm"> + </a>
+                            </td>
+                            <td>
                                 <a href="{{ url('edit-proker/'.$a['id']) }}" class="btn btn-primary btn-sm">Ubah</a>
-
                                 <a href="{{ url('delete-proker/'.$a['id']) }}" class="btn btn-danger btn-sm">Hapus</a>
-
                             </td>
                         </tr>
                         @empty

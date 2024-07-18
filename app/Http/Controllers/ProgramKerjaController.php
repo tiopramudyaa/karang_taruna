@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ProgramKerja;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProgramKerjaController extends Controller
 {
@@ -33,7 +34,14 @@ class ProgramKerjaController extends Controller
         ]);
         $validated['karang_taruna_id'] = 1;
 
-        $proker = ProgramKerja::create($validated);
+        if ($request->hasFile('gambar')) {
+            $gambarPath = $request->file('gambar')->store('public/prokerImages');
+            $gambarPath = str_replace('public/', 'storage/', $gambarPath);
+            // Simpan path gambar ke dalam $data
+            $validated['gambar'] = $gambarPath;
+        }
+
+        ProgramKerja::create($validated);
 
         return redirect('/proker');
     }
@@ -75,6 +83,11 @@ class ProgramKerjaController extends Controller
     {
         //
         $proker = ProgramKerja::where('id', $id)->first();
+
+        if ($proker->gambar && Storage::exists(str_replace('storage/', 'public/', $proker->gambar))) {
+            Storage::delete(str_replace('storage/', 'public/', $proker->gambar));
+        }
+
         $proker->delete();
 
         return redirect('/proker');

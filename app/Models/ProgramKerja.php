@@ -25,4 +25,9 @@ class ProgramKerja extends Model
     {
         return $this->belongsTo(KarangTaruna::class);
     }
+
+    public function gambarDokumentasi()
+    {
+        return $this->hasMany(GambarDokumentasi::class);
+    }
 }

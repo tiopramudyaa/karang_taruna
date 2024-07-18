@@ -12,7 +12,7 @@
             </nav>
             <h4>Tambah Proker</h4>
 
-            <form action="{{url('/create-proker')}}" method="post" class="p-3">
+            <form action="{{url('/create-proker')}}" method="post" class="p-3" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-2">
                     <label for="nama" class="form-label">Nama Proker</label>
@@ -32,6 +32,12 @@
                     <label for="tanggal" class="form-label">Tanggal</label>
                     <input type="date" class="form-control" id="tanggal" name="tanggal" required>
                 </div>
+
+                <div class="mb-2">
+                    <label for="gambar" class="form-label">Upload Gambar</label>
+                    <input type="file" class="form-control" id="gambar" name="gambar" accept="image/*" required>
+                </div>
+
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>

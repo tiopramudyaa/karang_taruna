@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Anggota;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use PhpParser\Node\Expr\Cast\String_;
+
 
 class AnggotaController extends Controller
 {
@@ -25,15 +27,23 @@ class AnggotaController extends Controller
     public function createAction(Request $request)
     {
         //
+        // return $request['gambar'];
         $validated = $request->validate([
             'nama' => 'required',
             'jabatan' => 'required',
-            // 'gambar' => 'required',
+            'gambar' => 'required',
             // 'karang_taruna_id' => 'required',
             'usia' => 'required'
         ]);
-
+        // return $validated;
         $validated['karang_taruna_id'] = 1;
+
+        if ($request->hasFile('gambar')) {
+            $gambarPath = $request->file('gambar')->store('public/anggotaImages');
+            $gambarPath = str_replace('public/', 'storage/', $gambarPath);
+            // Simpan path gambar ke dalam $data
+            $validated['gambar'] = $gambarPath;
+        }
 
         Anggota::create($validated);
 
@@ -64,6 +74,13 @@ class AnggotaController extends Controller
             'usia' => 'required'
         ]);
 
+        // if ($request->hasFile('gambar')) {
+        //     $gambarPath = $request->file('gambar')->store('public/anggotaImages');
+        //     $gambarPath = str_replace('public/', 'storage/', $gambarPath);
+        //     // Simpan path gambar ke dalam $data
+        //     $data['gambar'] = $gambarPath;
+        // }
+
         $anggota->update($validated);
 
         return redirect('/anggota');
@@ -76,8 +93,9 @@ class AnggotaController extends Controller
     {
         $anggota = Anggota::where('id', $id)->first();
 
-        // return $anggota;
-
+        if ($anggota->gambar && Storage::exists(str_replace('storage/', 'public/', $anggota->gambar))) {
+            Storage::delete(str_replace('storage/', 'public/', $anggota->gambar));
+        }
         $anggota->delete();
 
         return redirect('/anggota');

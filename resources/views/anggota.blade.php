@@ -26,7 +26,7 @@
                     <tbody>
                         @forelse($anggota as $a)
                         <tr>
-                            <td><img src=" https://via.placeholder.com/100" alt="Foto Anggota" class="img-thumbnail">
+                            <td><img src="{{ asset($a['gambar']) }}" alt="Foto Anggota" class="img-thumbnail" style="width: 60px; height: 60px;">
                             </td>
                             <td>{{$a['nama']}}</td>
                             <td>{{$a['jabatan']}}</td>
