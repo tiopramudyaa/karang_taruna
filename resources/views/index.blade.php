@@ -23,7 +23,8 @@
                             <p></p>
                             <div class="dropdown-divider"></div>
                             <li><a class="dropdown-item" href="">Edit Profile</a></li>
-                            <li><a class="dropdown-item" href="">Logout</a></li>
+                            <!-- <li><a class="dropdown-item" href="">Logout</a></li> -->
+                            <li><a class="dropdown-item" href="{{url('/logout')}}">Logout</a></li>
                         </ul>
                     </div>
                 </div>

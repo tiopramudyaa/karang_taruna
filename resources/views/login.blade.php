@@ -14,37 +14,34 @@
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">{{ __('Login') }}</div>
+                <div class="card p-3">
                     <div class="card-body">
-                        <form method="POST" action="">
+                        <h3 class="card-title text-center mb-4">Login</h3>
+                        @if (Session::has('error'))
+                        <div class="alert alert-danger">
+                            <b>Oops!</b> {{session('error')}}
+                        </div>
+                        @endif
+                        @if (Session::has('success'))
+                        <div class="alert alert-success">
+                            <b>Success!</b> {{session('success')}}
+                        </div>
+                        @endif
+                        <form action="{{ url('loginAction') }}" method="post" id="loginForm">
                             @csrf
-
-                            <div class="form-group mb-3">
-                                <label for="email" class="col-form-label">{{ __('Email Address') }}</label>
-                                <input id="email" type="email" class="form-control" name="email" required autofocus>
+                            <div class="mb-2">
+                                <label for="email">Email</label>
+                                <input type="email" name="email" class="form-control" id="email" placeholder="Email address" required>
                             </div>
-
-                            <div class="form-group mb-3">
-                                <label for="password" class="col-form-label">{{ __('Password') }}</label>
-                                <input id="password" type="password" class="form-control" name="password" required>
+                            <div class="mb-3">
+                                <label for="password">Password</label>
+                                <input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
                             </div>
-
-                            <div class="form-group mb-3">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember">
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-
-                            <div class="form-group mb-0">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-                            </div>
+                            <button type="submit" class="btn btn-dark btn-block">Login</button>
                         </form>
+                        <div class="mt-4 text-center">
+                            <p>Don't have an account? <a href="{{url('/register')}}">Register</a></p>
+                        </div>
                     </div>
                 </div>
             </div>
