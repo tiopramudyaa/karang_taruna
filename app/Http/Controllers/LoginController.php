@@ -12,6 +12,11 @@ class LoginController extends Controller
     //
     public function index()
     {
+        if (auth()->check()) {
+            // Arahkan pengguna ke halaman dashboard jika sudah login
+            return redirect('/dashboard');
+        }
+
         return view('login');
     }
 

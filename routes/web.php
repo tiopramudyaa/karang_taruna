@@ -13,12 +13,16 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 //     return view('login');
 // })->name('login');
 
+Route::get('/', [
+    LoginController::class, 'index'
+])->name('login');
 Route::get('/login', [
     LoginController::class, 'index'
 ])->name('login');
 Route::post('/loginAction', [LoginController::class, 'loginAction']);
 
 Route::middleware(['auth'])->group(function () {
+
     Route::get('/dashboard', [DashBoardController::class, 'dashboard']);
     // Tambahkan rute lain yang hanya bisa diakses oleh admin
 
