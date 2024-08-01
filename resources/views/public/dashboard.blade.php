@@ -114,9 +114,10 @@
 <body>
 
     <!-- Header -->
-    <nav class="navbar navbar-expand-lg navbar-light">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <a class="navbar-brand" href="#">
-            <img src="path/to/logo.png" alt="Karang Taruna KOMPAK">
+            <img src="{{ asset($karangTaruna->logo) }}" alt="Karang Taruna KOMPAK">
+            {{ $karangTaruna->nama }}
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -124,7 +125,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#dashboard">Dashboard</a>
+                    <a class="nav-link" href="/">Dashboard</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#organization">Struktur Keorganisasian</a>
@@ -142,15 +143,17 @@
         </div>
     </nav>
 
-    <!-- Dashboard -->
-    <section id="dashboard" class="hero">
-        <div class="container">
-            <h1 class="animate__animated animate__fadeIn animate__delay-1s">Karang Taruna KOMPAK</h1>
-            <p class="lead animate__animated animate__fadeIn animate__delay-2s">Selamat Datang di Website Kami</p>
-        </div>
-    </section>
 
-    <section class="container my-5">
+    <!-- Dashboard -->
+    <div class="container-fluid vh-100 d-flex justify-content-center align-items-center" style="background-image: url('{{ asset($karangTaruna->background) }}'); background-size: cover; background-position: center;">
+        <div class="text-center text-white">
+            <h1>Karang Taruna {{ $karangTaruna->nama }}</h1>
+            <p>Your dashboard content goes here.</p>
+            <!-- Add your dashboard components here -->
+        </div>
+    </div>
+
+    <!-- <section class="container my-5">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
                 <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -189,44 +192,90 @@
                 <span class="sr-only">Next</span>
             </a>
         </div>
-    </section>
+    </section> -->
 
-    <section class="container my-5">
-        <h2 class="animate__animated animate__fadeIn animate__delay-1s">Dokumentasi</h2>
+    <section id="about" class="container my-5">
+        <h2 class="text-center animate__animated animate__fadeIn animate__delay-1s">Tentang Kami</h2>
         <div class="row">
-            <div class="col-md-4 animate__animated animate__fadeIn animate__delay-2s">
-                <div class="card">
-                    <img src="path/to/documentation1.jpg" class="card-img-top" alt="Dokumentasi 1">
+            <div class="col-md-6 mb-4">
+                <div class="card animate__animated animate__fadeIn animate__delay-2s">
                     <div class="card-body">
-                        <p class="card-text">Deskripsi Dokumentasi 1</p>
+                        <h4 class="card-title">Visi</h4>
+                        <ul class="list-unstyled">
+                            @foreach ($visi as $item)
+                            <li>{{ $item }}</li>
+                            @endforeach
+                        </ul>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 animate__animated animate__fadeIn animate__delay-3s">
-                <div class="card">
-                    <img src="path/to/documentation2.jpg" class="card-img-top" alt="Dokumentasi 2">
+            <div class="col-md-6 mb-4">
+                <div class="card animate__animated animate__fadeIn animate__delay-3s">
                     <div class="card-body">
-                        <p class="card-text">Deskripsi Dokumentasi 2</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 animate__animated animate__fadeIn animate__delay-4s">
-                <div class="card">
-                    <img src="path/to/documentation3.jpg" class="card-img-top" alt="Dokumentasi 3">
-                    <div class="card-body">
-                        <p class="card-text">Deskripsi Dokumentasi 3</p>
+                        <h4 class="card-title">Misi</h4>
+                        <ul class="list-unstyled">
+                            @foreach ($misi as $item)
+                            <li>{{ $item }}</li>
+                            @endforeach
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+
     <section class="container my-5">
-        <h2 class="animate__animated animate__fadeIn animate__delay-1s">Lokasi Kami</h2>
-        <div id="map" style="height: 300px;" class="animate__animated animate__fadeIn animate__delay-2s"></div>
+        <h2 class="text-center animate__animated animate__fadeIn animate__delay-1s">Event</h2>
+        <div class="row">
+            @foreach ($proker as $item)
+            <div class="col-md-4 animate__animated animate__fadeIn animate__delay-4s">
+                <div class="card" style="background-color: lightblue;">
+                    <img src="{{ asset($item->gambar) }}" class="card-img-top" alt="{{ $item->nama }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $item->nama_proker }}</h5>
+                        <p class="card-text">{{ Str::limit($item->deskripsi, 100, '...') }}</p>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
     </section>
 
-    <!-- Struktur Keorganisasian -->
+    <!-- ppppp -->
+    <section id="documentation" class="container my-5">
+        <h2 class="text-center">Dokumentasi</h2>
+        <div id="documentationCarousel" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                @php
+                $chunkedImages = $images->chunk(4); // Membagi gambar dalam grup 4
+                @endphp
+                @foreach ($chunkedImages as $index => $chunk)
+                <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                    <div class="row">
+                        @foreach ($chunk as $image)
+                        <div class="col-md-3 mb-3">
+                            <img src="{{ asset($image->path) }}" class="d-block w-100" alt="Dokumentasi">
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            <a class="carousel-control-prev" href="#documentationCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#documentationCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- ppppp -->
+
+    <!-- Struktur Keorganisasian
     <section id="organization" class="container my-5">
         <h2 class="animate__animated animate__fadeIn animate__delay-1s">Struktur Keorganisasian</h2>
         <div class="row">
@@ -243,59 +292,54 @@
                 <img src="path/to/structure.jpg" class="img-fluid organization animate__animated animate__fadeIn animate__delay-3s" alt="Struktur Organisasi">
             </div>
         </div>
-    </section>
+    </section> -->
 
     <!-- Event -->
-    <section id="events" class="container my-5">
-        <h2 class="animate__animated animate__fadeIn animate__delay-1s">Event</h2>
+    <section id="contact" class="container my-5">
+        <h2 class="text-center animate__animated animate__fadeIn animate__delay-1s">Kontak Kami</h2>
+        <br>
+        <br>
         <div class="row">
-            <div class="col-md-4 animate__animated animate__fadeIn animate__delay-2s">
-                <div class="card">
-                    <img src="path/to/event1.jpg" class="card-img-top" alt="Event 1">
-                    <div class="card-body">
-                        <h5 class="card-title">Event 1</h5>
-                        <p class="card-text">Deskripsi Event 1</p>
+            <div class="col-md-4 mb-4 animate__animated animate__fadeIn animate__delay-2s">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-map-marker-alt fa-2x mr-3"></i>
+                    <div>
+                        <h5>Alamat</h5>
+                        <p>{{ $karangTaruna->alamat }}</p>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 animate__animated animate__fadeIn animate__delay-3s">
-                <div class="card">
-                    <img src="path/to/event2.jpg" class="card-img-top" alt="Event 2">
-                    <div class="card-body">
-                        <h5 class="card-title">Event 2</h5>
-                        <p class="card-text">Deskripsi Event 2</p>
+            <div class="col-md-4 mb-4 animate__animated animate__fadeIn animate__delay-3s">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-envelope fa-2x mr-3"></i>
+                    <div>
+                        <h5>Email</h5>
+                        <p>{{ $karangTaruna->email }}</p>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 animate__animated animate__fadeIn animate__delay-4s">
-                <div class="card">
-                    <img src="path/to/event3.jpg" class="card-img-top" alt="Event 3">
-                    <div class="card-body">
-                        <h5 class="card-title">Event 3</h5>
-                        <p class="card-text">Deskripsi Event 3</p>
+            <div class="col-md-4 mb-4 animate__animated animate__fadeIn animate__delay-4s">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-phone fa-2x mr-3"></i>
+                    <div>
+                        <h5>Telepon</h5>
+                        <p>{{ $karangTaruna->telp }}</p>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- Tentang -->
-    <section id="about" class="container my-5">
-        <h2 class="animate__animated animate__fadeIn animate__delay-1s">Tentang Kami</h2>
-        <h4 class="animate__animated animate__fadeIn animate__delay-2s">Visi</h4>
-        <p class="animate__animated animate__fadeIn animate__delay-3s">Visi Kami adalah...</p>
-        <h4 class="animate__animated animate__fadeIn animate__delay-4s">Misi</h4>
-        <p class="animate__animated animate__fadeIn animate__delay-5s">Misi Kami adalah...</p>
-    </section>
-
-    <!-- Kontak -->
-    <section id="contact" class="container my-5">
-        <h2 class="animate__animated animate__fadeIn animate__delay-1s">Kontak Kami</h2>
-        <p class="animate__animated animate__fadeIn animate__delay-2s">Alamat: Jalan Contoh No.123, Kota ABC</p>
-        <p class="animate__animated animate__fadeIn animate__delay-3s">Email: karangtaruna@kompak.com</p>
-        <p class="animate__animated animate__fadeIn animate__delay-4s">Telepon: (021) 12345678</p>
+        <!-- Uncomment this section if you want to include a map -->
+        <!--
         <div id="contact-map" style="height: 300px;" class="animate__animated animate__fadeIn animate__delay-5s"></div>
+        -->
     </section>
+
+    <section class="container my-5">
+
+        <!-- <h2 class="text-center animate__animated animate__fadeIn animate__delay-1s">Lokasi Kami</h2> -->
+        <div id="map" style="height: 300px;" class="animate__animated animate__fadeIn animate__delay-2s"></div>
+    </section>
+
 
     <!-- Footer -->
     <footer class="footer">
@@ -308,26 +352,23 @@
     <script>
         // Inisialisasi Google Maps
         function initMap() {
+            // Lokasi yang ingin ditampilkan di peta
             var location = {
                 lat: -6.200000,
                 lng: 106.816666
-            };
+            }; // Ganti dengan koordinat lokasi Anda
+
+            // Inisialisasi peta
             var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 10,
-                center: location
-            });
-            var marker = new google.maps.Marker({
-                position: location,
-                map: map
+                zoom: 12, // Zoom level
+                center: location // Titik pusat peta
             });
 
-            var contactMap = new google.maps.Map(document.getElementById('contact-map'), {
-                zoom: 10,
-                center: location
-            });
-            var contactMarker = new google.maps.Marker({
+            // Menambahkan marker di lokasi
+            var marker = new google.maps.Marker({
                 position: location,
-                map: contactMap
+                map: map,
+                title: 'Lokasi Kami'
             });
         }
     </script>

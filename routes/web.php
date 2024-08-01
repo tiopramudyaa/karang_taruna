@@ -5,24 +5,21 @@ use App\Http\Controllers\DashBoardController;
 use App\Http\Controllers\DokumentasiController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProgramKerjaController;
+use App\Http\Controllers\publicView;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
-Route::get('/con', function () {
-    return view('public.dashboard');
-})->name('login');
 
-Route::get('/conn', function () { return view('public.contact'); });
-Route::get('/connn', function () { return view('public.events'); });
 
-// Route::get('/login', function () {
-//     return view('login');
+
+
+
+// Route::get('/', function () {
+//     return view('public.dashboard');
 // })->name('login');
 
-Route::get('/', [
-    LoginController::class, 'index'
-])->name('login');
+
+Route::get('/', [publicView::class, 'index']);
 Route::get('/login', [
     LoginController::class, 'index'
 ])->name('login');
@@ -31,7 +28,8 @@ Route::post('/loginAction', [LoginController::class, 'loginAction']);
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/dashboard', [DashBoardController::class, 'dashboard']);
-    // Tambahkan rute lain yang hanya bisa diakses oleh admin
+    Route::get('/update-profile', [DashBoardController::class, 'update']);
+    Route::post('/update-profileA', [DashBoardController::class, 'updateAction']);
 
     //anggota
     Route::get('/anggota', [AnggotaController::class, 'index']);
@@ -56,10 +54,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/dokumentasi-proker/{id}', [DokumentasiController::class, 'index']);
     Route::post('/addimage-proker/{id}', [DokumentasiController::class, 'createAction']);
-    // Route::get('/logout', function () {
-    //     return view('login');
-    // });
-
 });
 
 Route::get('/logout', function () {

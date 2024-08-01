@@ -16,7 +16,10 @@ class KarangTaruna extends Model
         'visi',
         'misi',
         'logo',
-        'gambar_dokumentasi'
+        'background',
+        'alamat',
+        'email',
+        'telp',
     ];
 
     public function anggota()
