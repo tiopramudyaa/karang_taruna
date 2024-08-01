@@ -9,6 +9,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
+Route::get('/con', function () {
+    return view('public.dashboard');
+})->name('login');
+
+Route::get('/conn', function () { return view('public.contact'); });
+Route::get('/connn', function () { return view('public.events'); });
+
 // Route::get('/login', function () {
 //     return view('login');
 // })->name('login');
